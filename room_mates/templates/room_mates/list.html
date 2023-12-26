@@ -1,0 +1,293 @@
+<!-- to add bootstrap we want to extends the base.html-->
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+<section id="showcase">
+    {% include '_alerts.html' %}
+    {% if user.is_roommate %}
+    <div class="container text-center">
+      <div class="home-search p-5">
+        <div class="overlay p-5">
+          <h1 class="display-4 mb-4">
+            Finding Room Mates Just Got So Easy
+          </h1>
+          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quas, asperiores eveniet vel nostrum magnam
+            voluptatum tempore! Consectetur, id commodi!</p>
+          <div class="search">
+            <form action="{% url 'search' %}">
+              <!-- Form Row 1 -->
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Keywords</label>
+                  <input type="text" name="area" class="form-control" value="{{values.area}}" placeholder="Keyword (Pool, Garage, etc)">
+                </div>
+  
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Price</label>
+                  <input type="text" name="price" value="{{values.price}}" class="form-control" placeholder="What is Your Budget? (e.g 50,000)">
+                </div>
+  
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">State</label>
+                  <select name="campus" class="form-control">
+                    <option selected="true" disabled="disabled">Campus</option>
+                    {% for key,value in campus_choices %}
+                        <option value="{{key}}" {% if key == values.campus %}
+                                selected
+                            {% endif %} >{{value}}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <!-- Form Row 2 -->
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Room Type</label>
+                  <select name="type" class="form-control">
+                    <option selected="true" disabled="disabled">Room Type</option>
+                    {% for key,value in type_choices %}
+                        <option value="{{key}}" {% if key == values.type %}
+                                selected
+                            {% endif %} >{{value}}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+  
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Light</label>
+                  <select name="light" class="form-control">
+                    <option selected="true" disabled="disabled">Light</option>
+                    {% for key,value in light_choices %}
+                        <option value="{{key}}" {% if key == values.light %}
+                                selected
+                            {% endif %} >{{value}}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+  
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Water</label>
+                  <select name="water" class="form-control">
+                    <option selected="true" disabled="disabled">Water</option>
+                    {% for key,value in water_choices %}
+                        <option value="{{key}}" {% if key == values.water %}
+                                selected
+                            {% endif %} >{{value}}</option>
+                      {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="container text-center">
+        <div class="home-search p-5">
+          <div class="overlay p-5">
+            <h1 class="display-4 mb-4">
+              Finding Room Mates Just Got So Easy  <a data-toggle="modal" data-target="#inquiryModal">First Setup a profile  </a>
+            </h1>
+            <p class="lead">Connect with Room Mates you have So Much In Common Things Are Impossible To Go Wrong
+                To begin, <a data-toggle="modal" data-target="#inquiryModal">First Setup a profile  </a></p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+  </section>
+
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'home' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> Browse Room Mates</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Listings -->
+  <section id="listings" class="py-4">
+    <div class="container">
+        {% if room_mates %}
+        {% for room_mate in room_mates %}
+        <div class="container">
+            <div class="container mt-5 d-flex justify-content-center">
+
+                <div class="card p-3">
+    
+                    <div class="d-flex align-items-center">
+    
+                        <div class="image">
+                    <img src="{{room_mate.user.avatar.url}}" class="rounded" width="155" >
+                    </div>
+    
+                    <div class="ml-3 w-100">
+                        
+                       <h4 class="mb-0 mt-0">{{room_mate.user.first_name}}</h4>
+                       <span>Name</span>
+    
+                       <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+    
+                        <div class="d-flex flex-column">
+    
+                            <span class="articles">Level</span>
+                            <span class="number1">{{room_mate.get_level_display}}</span>
+                            
+                        </div>
+    
+                        <div class="d-flex flex-column">
+    
+                            <span class="followers">Religion</span>
+                            <span class="number2">{{room_mate.get_religion_display}}</span>
+                            
+                        </div>
+    
+    
+                        <div class="d-flex flex-column">
+    
+                            <span class="rating">Rating</span>
+                            <span class="number3">8.9</span>
+                            
+                        </div>
+                           
+                       </div>
+    
+    
+                       <div class="button mt-2 d-flex flex-row align-items-center">
+    
+                        <button class="btn btn-sm btn-outline-primary w-100">Chat</button>
+                        <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button>
+    
+                           
+                       </div>
+    
+    
+                    </div>
+    
+                        
+                    </div>
+                    
+                </div>
+                 
+             </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-md-12">
+            <p>No Room Mate Available.</p>
+          </div>
+        {% endif %}
+      </div>
+
+       <!-- Inquiry Modal -->
+  <div class="modal fade" id="inquiryModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="inquiryModalLabel">Make An Inquiry</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{% url 'room-mates-create' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <img class="room-avatar" src="{{user.avatar.url}}" alt="">
+            <input type="file" name="avatar" class="form-control">
+            <div class="form-group">
+              <label for="name" class="col-form-label">Name:</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="name" class="col-form-label">Department:</label>
+              <input type="text" name="department" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="level" class="col-form-label">Level:</label>
+              <select name="level" class="form-control">
+                {% for key,value in level_choices %}
+                    <option value="{{key}}" {% if key == values.level %}
+                            selected
+                        {% endif %} >{{value}}</option>
+                  {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="religion" class="col-form-label">Religion:</label>
+              <select name="religion" class="form-control">
+                {% for key,value in religion_choices %}
+                    <option value="{{key}}" {% if key == values.religion %}
+                            selected
+                        {% endif %} >{{value}}</option>
+                  {% endfor %}
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="col-form-label">Phone:</label>
+              <input type="text" name="phone" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="about" class="col-form-label">About:</label>
+              <textarea name="about" class="form-control"></textarea>
+            </div>
+            <hr>
+            <input type="submit" value="Find Room Mate" class="btn btn-block btn-secondary">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          {% if listings.has_other_pages %}
+            <ul class="pagination">
+               <!--if previous page exists then show other wise show disablled one...-->
+              {% if listings.has_previous %}
+              <li class="page-item">
+                <a href="?page={{listings.previous_page_number}}" class="page-link">&laquo;</a>
+              </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link disabled">&laquo;</a>
+                </li>
+              {% endif %}
+              {% for i in listings.paginator.page_range %}
+                {% if listings.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link">{{i}}</a>
+                  </li>
+                {% else %}
+                  <li class="page-item">
+                    <a href="?page={{i}}" class="page-link">{{i}}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+              <!--designing next page paginator-->
+              {% if listings.has_next %}
+              <li class="page-item">
+                <a href="?page={{listings.next_page_number}}" class="page-link">&raquo;</a>
+              </li>
+              {% else %}
+              <li class="page-item">
+                <a class="page-link disabled">&raquo;</a>
+              </li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

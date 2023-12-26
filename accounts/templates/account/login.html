@@ -1,0 +1,35 @@
+{% extends '_base.html' %}
+{% block content %}
+
+<section id="login" class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h4>
+                <i class="fas fa-sign-in-alt"></i> Login</h4>
+            </div>
+            <div class="card-body">
+              <!-- Alerts-->
+                {% include '_alerts.html' %}
+              <form action="{% url 'account_login' %}" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                  <label for="password2">{{field.label}}</label>
+                  <input type="{{field.type}}" name="{{field.name}}" class="form-control" required>
+                </div>
+                {% endfor %}
+                <p class="lead"><a href="{% url 'account_reset_password' %}">forgot password?</a></p>
+                <input type="submit" value="Login" class="btn btn-secondary btn-block">
+                <p class="lead">Don't have an account? <a href="{% url 'account_signup' %}">Sign Up</a></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% include '_footer.html' %}
+{% endblock %}

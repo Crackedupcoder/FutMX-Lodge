@@ -1,0 +1,33 @@
+ {% extends '_base.html' %}
+ {% block content %}
+  <section id="register" class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h4>
+                <i class="fas fa-user-plus"></i> Register</h4>
+            </div>
+            <div class="card-body">
+                <!-- Alerts-->
+                {% include '_alerts.html' %}
+                <form action="{% url 'account_signup' %}" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                <div class="form-group">
+                  <label for="last_name">{{field.label}}</label>
+                  <input type="{{field.type}}" name="{{field.name}}" class="form-control" required>
+                </div>
+                {% endfor %}
+                <input type="submit" value="Register" class="btn btn-secondary btn-block">
+              </form>
+              <P class="lead">By clicking register you agree to have read and accept the <a href="/">terms of service</a></P>
+              <p class="lead">Already have an account? <a href="{% url 'account_login' %}">Login</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ {% endblock %}
