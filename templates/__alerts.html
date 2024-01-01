@@ -1,0 +1,20 @@
+{% for message in messages %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% if message.tags == 'success' %}
+<script>
+Swal.fire(
+'Success',
+'{{message}}',
+'success'
+)
+</script>
+{% else %}
+<script>
+    Swal.fire(
+    'Error!',
+    '{{message}}',
+    'error'
+    )
+</script>
+{% endif %}
+{% endfor %}

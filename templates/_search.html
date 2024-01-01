@@ -7,80 +7,72 @@
     </div>
     <span class="close-box-collapse right-boxed bi bi-x"></span>
     <div class="box-collapse-wrap form">
-      <form class="form-a">
+      <form class="form-a" method="get" action="{% url 'rooms' %}">
         <div class="row">
           <div class="col-md-12 mb-2">
-            <div class="form-group">
+            <div class="form-group"></div>
               <label class="pb-2" for="Type">Keyword</label>
-              <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
+              <input type="text" class="form-control form-control-lg form-control-a" name="area" value="{{values.area}}" placeholder="Keyword">
             </div>
           </div>
           <div class="col-md-6 mb-2">
             <div class="form-group mt-3">
-              <label class="pb-2" for="Type">Type</label>
-              <select class="form-control form-select form-control-a" id="Type">
-                <option>All Type</option>
-                <option>For Rent</option>
-                <option>For Sale</option>
-                <option>Open House</option>
+              <label class="pb-2" for="Campus">Campus</label>
+              <select name="campus" class="form-control form-select form-control-a" id="Type">
+                {% for key,value in campus_choices %}
+                <option value="{{key}}" {% if key == values.campus %}
+                        selected
+                    {% endif %} >{{value}}</option>
+              {% endfor %}
               </select>
             </div>
           </div>
           <div class="col-md-6 mb-2">
             <div class="form-group mt-3">
-              <label class="pb-2" for="city">City</label>
-              <select class="form-control form-select form-control-a" id="city">
-                <option>All City</option>
-                <option>Alabama</option>
-                <option>Arizona</option>
-                <option>California</option>
-                <option>Colorado</option>
+              <label class="pb-2" for="city">Type</label>
+              <select name="type" class="form-control form-select form-control-a" id="city">
+                {% for key,value in type_choices %}
+                <option value="{{key}}" {% if key == values.type %}
+                        selected
+                    {% endif %} >{{value}}</option>
+              {% endfor %}
               </select>
             </div>
           </div>
           <div class="col-md-6 mb-2">
             <div class="form-group mt-3">
-              <label class="pb-2" for="bedrooms">Bedrooms</label>
-              <select class="form-control form-select form-control-a" id="bedrooms">
-                <option>Any</option>
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
+              <label class="pb-2" for="light">Light</label>
+              <select name="light" class="form-control form-select form-control-a" id="bedrooms">
+                {% for key,value in light_choices %}
+                <option value="{{key}}" {% if key == values.light %}
+                        selected
+                    {% endif %} >{{value}}</option>
+              {% endfor %}
               </select>
             </div>
           </div>
           <div class="col-md-6 mb-2">
             <div class="form-group mt-3">
-              <label class="pb-2" for="garages">Garages</label>
-              <select class="form-control form-select form-control-a" id="garages">
-                <option>Any</option>
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
-                <option>04</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-6 mb-2">
-            <div class="form-group mt-3">
-              <label class="pb-2" for="bathrooms">Bathrooms</label>
-              <select class="form-control form-select form-control-a" id="bathrooms">
-                <option>Any</option>
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
+              <label class="pb-2" for="water">Water</label>
+              <select name="water" class="form-control form-select form-control-a" id="garages">
+                {% for key,value in water_choices %}
+                <option value="{{key}}" {% if key == values.water %}
+                        selected
+                    {% endif %} >{{value}}</option>
+              {% endfor %}
               </select>
             </div>
           </div>
           <div class="col-md-6 mb-2">
             <div class="form-group mt-3">
               <label class="pb-2" for="price">Min Price</label>
-              <select class="form-control form-select form-control-a" id="price">
-                <option>Unlimite</option>
-                <option>$50,000</option>
-                <option>$100,000</option>
-                <option>$150,000</option>
-                <option>$200,000</option>
+              <select name="price" class="form-control form-select form-control-a" id="price">
+                <option>Unlimited</option>
+                {% for key,value in price_choices.items %}
+                <option value="{{key}}" {% if key == values.price %}
+                        selected
+                    {% endif %} >{{value}}</option>
+              {% endfor %}
               </select>
             </div>
           </div>

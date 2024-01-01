@@ -3,9 +3,6 @@
 {% block content %}
 <body>
 
-{% include '_search.html' %}
-  <!-- ======= Header/Navbar ======= -->
-{% include '_navbar.html' %}
   <main id="main">
 
     <!-- ======= Intro Single ======= -->
@@ -13,6 +10,9 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-8">
+            {% block alerts %}
+            {% include '__alerts.html' %}
+            {% endblock alerts %}
             <div class="title-single-box">
               <h1 class="title-single">{{agent}}</h1>
               <span class="color-text-a">Agent {{agent}}</span>
@@ -73,31 +73,41 @@
                   </div>
                   <div class="socials-footer">
                     <ul class="list-inline">
+                      {% if agent.facebook %}
                       <li class="list-inline-item">
-                        <a href="#" class="link-one">
+                        <a target="_blank" href="https://{{agent.facebook}}">
                           <i class="bi bi-facebook" aria-hidden="true"></i>
                         </a>
                       </li>
+                      {% endif %}
+                      {% if agent.twitter %}
                       <li class="list-inline-item">
-                        <a href="#" class="link-one">
+                        <a target="_blank" href="https://{{agent.twitter}}">
                           <i class="bi bi-twitter" aria-hidden="true"></i>
                         </a>
                       </li>
+                      {% endif %}
+                      {% if agent.instagram %}
                       <li class="list-inline-item">
-                        <a href="#" class="link-one">
+                        <a target="_blank" href="https://{{agent.instagram}}">
                           <i class="bi bi-instagram" aria-hidden="true"></i>
                         </a>
                       </li>
+                      {% endif %}
+                      {% if agent.whatsapp %}
                       <li class="list-inline-item">
-                        <a href="#" class="link-one">
+                        <a target="_blank" href="https://{{agent.whatsapp}}">
                           <i class="bi bi-whatsapp" aria-hidden="true"></i>
                         </a>
                       </li>
+                      {% endif %}
+                      {% if agent.telegram %}
                       <li class="list-inline-item">
-                        <a href="#" class="link-one">
+                        <a target="_blank" href="https://{{agent.telegram}}">
                           <i class="bi bi-telegram" aria-hidden="true"></i>
                         </a>
                       </li>
+                      {% endif %}
                     </ul>
                   </div>
                 </div>
@@ -172,47 +182,49 @@
           </div>
         </div>
         <div class="col-md-12">
-          <div class="row section-t3">
-            <div class="col-sm-12">
-              <div class="title-box-d">
-                <h3 class="title-d">Contact Agent</h3>
-              </div>
+          <div class="col-sm-12 section-t8">
+            <div class="title-box-d">
+              <h3 class="title-d">Contact Agent</h3>
             </div>
-          </div>
-        <div class="col-md-12 col-lg-4">
-          <div class="property-contact">
-            <form class="form-a">
-              <div class="row">
-                <div class="col-md-12 mb-1">
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-lg form-control-a" id="inputName" placeholder="Name *" required>
+            <div class="row">
+              <div class="col-md-7">
+                <form action="{{agent.get_absolute_url}}" method="POST" role="form" id="message-form">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                        <input type="text" name="name" class="form-control form-control-lg form-control-a" placeholder="Your Name" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                        <input type="text" name="email" class="form-control form-control-lg form-control-a" placeholder="Your Email" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <textarea id="message" name="message" class="form-control form-control-lg form-control-a" name="message" cols="45" rows="8" placeholder="Message" required></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-12 my-3">
+                      <div class="mb-3">
+                        <div class="loading"></div>
+                        <div class="error-message"></div>
+                        <div class="sent-message"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                      <button type="submit" class="btn btn-a">Send Message</button>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-12 mb-1">
-                  <div class="form-group">
-                    <input type="email" class="form-control form-control-lg form-control-a" id="inputEmail1" placeholder="Email *" required>
-                  </div>
-                </div>
-                <div class="col-md-12 mb-1">
-                  <div class="form-group">
-                    <textarea id="textMessage" class="form-control" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
-                  </div>
-                </div>
-                <div class="col-md-12 mt-3">
-                  <button type="submit" class="btn btn-a">Send Message</button>
-                </div>
+                </form>
               </div>
-            </form>
-          </div>
-        </div>
       </div>
     </section><!-- End Agent Single -->
     
 
   </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-{% include '_footer.html' %}
 
 </body>
 

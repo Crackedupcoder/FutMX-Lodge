@@ -6,7 +6,7 @@
       <span></span>
       <span></span>
     </button>
-    <a class="navbar-brand text-brand" href="index.html">FutMX<span class="color-b">Lodge</span></a>
+    <a class="navbar-brand text-brand" href="{% url 'home' %}">FutMX<span class="color-b">Lodge</span></a>
 
     <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
       <ul class="navbar-nav">
@@ -16,7 +16,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link " href="about.html">About</a>
+          <a class="nav-link " href="{% url 'about' %}">About</a>
         </li>
 
         <li class="nav-item">
@@ -28,7 +28,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link " href="contact.html">Contact</a>
+          <a class="nav-link " href="{% url 'contact' %}">Contact</a>
         </li>
 
         {% if request.user.is_authenticated %}
@@ -52,10 +52,10 @@
       </ul>
     </div>
 
-
     <button type="button" class="btn btn-b-n navbar-toggle-box navbar-toggle-box-collapse" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
       <i class="bi bi-search"></i>
     </button>
+    
 
   </div>
 </nav><!-- End Header/Navbar -->

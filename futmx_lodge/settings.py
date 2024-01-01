@@ -40,10 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
 
     'accounts.apps.AccountsConfig',
     'lodges.apps.LodgesConfig',
     'room_mates.apps.RoomMatesConfig',
+    'contact.apps.ContactConfig',
+    'about.apps.AboutConfig',
 
     'allauth',
     'allauth.account',

@@ -3,11 +3,17 @@ from django.contrib.auth import get_user_model
 from accounts.models import Agent
 from django.utils import timezone
 from django.urls import reverse
-from PIL import Image
 from django.core.validators import FileExtensionValidator
 from django.utils.text import slugify
 from django.utils.crypto import get_random_string
 import locale
+from django.db.models.query import QuerySet
+from .validation import is_valid_video, validate_video_size, validate_image_size
+
+
+# class PublishedManager(models.Manager):
+#     def get_queryset(self) -> QuerySet:
+#         return super().get_queryset().filter()
 
 class Lodge(models.Model):
 
@@ -29,20 +35,21 @@ class Lodge(models.Model):
     campus = models.CharField(max_length=2, choices=Campus.choices)
     area = models.CharField(max_length=50)
     available_rooms = models.IntegerField(default=0)
-    cover_image = models.ImageField(default='11756.jpg', upload_to='lodge/')
+    cover_image = models.ImageField(default='11756.jpg', upload_to='lodge/', validators=[validate_image_size,])
     water = models.CharField(max_length=2, choices=Water.choices)
     light = models.CharField(max_length=2, choices=Light.choices)
     price = models.DecimalField(decimal_places=2, max_digits=9)
     description = models.TextField(blank=True)
-    video = models.FileField(upload_to='videos/', blank=True, validators=[FileExtensionValidator(allowed_extensions=['mp4'])])
+    video = models.FileField(upload_to='videos/', blank=True, validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'mkv', 'mov', 'wmv']), is_valid_video, validate_video_size])
     created_at = models.DateTimeField(default=timezone.now)
 
 
     class Meta:
         ordering = ['-created_at']
+        indexes = [models.Index(fields=['-created_at', 'name','campus','area','water','light','price',],)]
     
     def save(self, *args, **kwargs):
-        # If the slug is not set or is empty, generate it from the title
+        # If the slug is not set or is empty, generate it from the name
         if not self.slug:
             base_slug = slugify(self.name)
             unique_slug = base_slug
@@ -60,32 +67,16 @@ class Lodge(models.Model):
         formatted_price = locale.format('%0.2f', self.price, grouping=True)
         return formatted_price
 
-
     def __str__(self):
         return self.name
     
-
     def get_absolute_url(self):
         return reverse('lodge', args=[self.slug])
 
 
 class LodgeImage(models.Model):
-    image = models.ImageField(upload_to='lodges/')
+    image = models.ImageField(upload_to='lodges/', validators=[validate_image_size,])
     lodge = models.ForeignKey(Lodge, on_delete=models.CASCADE, related_name='images')
-
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     # Open the image using Pillow
-    #     img = Image.open(self.image.path)
-
-    #     # Resize the image
-    #     if img.height < 1000 or img.width < 1000:
-
-    #         new_size = (600, 300)  # Adjust the size according to your requirements
-    #         img.thumbnail(new_size)
-
-    #         # Save the resized image
-    #         img.save(self.image.path)
 
 
 class LodgeAmmenities(models.Model):
@@ -110,13 +101,13 @@ class Room(models.Model):
     block = models.CharField(max_length=50, blank=True)
     availabe = models.BooleanField(default=False)
     price = models.DecimalField(decimal_places=2, max_digits=9)
-    cover_image = models.ImageField(default='11756.jpg', upload_to='rooms/')
+    cover_image = models.ImageField(default='11756.jpg', upload_to='rooms/', validators=[validate_image_size,])
+    video = models.FileField(upload_to='videos/', blank=True, validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'mkv', 'mov', 'wmv']), is_valid_video, validate_video_size])
     created_at = models.DateTimeField(default=timezone.now)
 
-    
     class Meta:
         ordering = ['-created_at',]
-
+        indexes = [models.Index(fields=['type','-created_at','price',],)]
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -129,17 +120,6 @@ class Room(models.Model):
 
             self.slug = unique_slug
         super().save(*args, **kwargs)
-        # Open the image using Pillow
-        img = Image.open(self.cover_image.path)
-
-        # Resize the image
-        if img.height < 500 or img.width < 500:
-
-            new_size = (300, 300)  # Adjust the size according to your requirements
-            img.thumbnail(new_size)
-
-            # Save the resized image
-            img.save(self.cover_image.path)
 
     def formatted_price(self):
         locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
@@ -154,21 +134,8 @@ class Room(models.Model):
     
 
 class RoomImage(models.Model):
-    image = models.ImageField(upload_to='rooms/')
+    image = models.ImageField(upload_to='rooms/', validators=[validate_image_size,])
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='images')
     
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        # Open the image using Pillow
-        img = Image.open(self.image.path)
-
-        # Resize the image
-        if img.height < 500 or img.width < 500:
-
-            new_size = (300, 300)  # Adjust the size according to your requirements
-            img.thumbnail(new_size)
-
-            # Save the resized image
-            img.save(self.image.path)
 
 
