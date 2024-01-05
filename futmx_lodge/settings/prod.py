@@ -1,5 +1,9 @@
 from .base import *
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import cloudinary_storage
 
 DEBUG = False
 
@@ -16,6 +20,16 @@ DATABASES = {
 
 database_url = env('DATABASE_URL')
 DATABASES['default'] = dj_database_url.parse(database_url)
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUD_NAME'),
+    'API_KEY': env('API_KEY'),
+    'API_SECRET': env('API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = [
+    'cloudinary_storage.storage.MediaCloudinaryStorage',
+]
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
