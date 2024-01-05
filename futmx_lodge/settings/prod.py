@@ -17,6 +17,10 @@ DATABASES = {
 database_url = env('DATABASE_URL')
 DATABASES['default'] = dj_database_url.parse(database_url)
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 SECURE_SSL_REDIRECT = True 

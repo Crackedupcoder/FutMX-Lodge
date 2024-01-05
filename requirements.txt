@@ -48,3 +48,7 @@ tzdata
 urllib3
 virtualenv
 wcwidth
+Brotli
+gunicorn
+packaging
+whitenoise
