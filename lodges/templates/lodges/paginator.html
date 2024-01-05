@@ -2,6 +2,7 @@
     <div class="col-sm-12">
       <nav class="pagination-a">
         <ul class="pagination justify-content-end">
+          <!-- FIRST PAGE -->
         {% if page.has_previous %}
           <li class="page-item disabled">
             <a class="page-link" href="?page=1" tabindex="-1">
@@ -9,6 +10,9 @@
             </a>
           </li>
         {% endif %}
+        <!-- END FIRST PAGE -->
+
+        <!-- PAGE RANGE AND CURRENT PAGE -->
           {% for num in page.paginator.page_range %}
           {% if num == page.number %}
           <li class="page-item active">
@@ -20,6 +24,9 @@
           </li>
           {% endif %}
           {% endfor %}
+          <!-- END PAGE RANGE AND CURRENT PAGE -->
+
+          <!-- LAST PAGE  -->
           {% if page.has_next %}
           <li class="page-item next">
             <a class="page-link" href="?page={{page.paginator.num_pages}}">
@@ -27,6 +34,7 @@
             </a>
           </li>
           {% endif %}
+          <!-- END LAST PAGE -->
         </ul>
       </nav>
     </div>

@@ -11,7 +11,7 @@ from django.contrib import messages
 
 def agents_list(request):
     agents_query = Agent.objects.all()
-    agents_per_page = 1
+    agents_per_page = 9
     paginator = Paginator(agents_query, agents_per_page)
     page_number = request.GET.get('page', 1)
     try:
@@ -27,7 +27,7 @@ def agents_list(request):
             'light_choices': Lodge.Light.choices,
             'price_choices': price_choices,
             'values':request.GET,}
-    return render(request, 'account/agents-grid.html', cxt)
+    return render(request, 'account/agents.html', cxt)
 
 
 def agent_detail(request, pk):
@@ -58,4 +58,4 @@ def agent_detail(request, pk):
             'light_choices': Lodge.Light.choices,
             'price_choices': price_choices,
             'values':request.GET,}
-    return render(request, 'account/agent-single.html', cxt)
+    return render(request, 'account/agent.html', cxt)

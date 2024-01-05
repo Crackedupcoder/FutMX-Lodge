@@ -8,7 +8,7 @@ from django.contrib import messages
 
 
 def home_page(request):
-    rooms = Room.objects.all()
+    rooms = Room.objects.all()[:5]
     agents = Agent.objects.all()   
     cxt = {'rooms': rooms,
             'agents':agents,
@@ -18,7 +18,7 @@ def home_page(request):
             'light_choices': Lodge.Light.choices,
             'price_choices': price_choices,
             'values':request.GET,}
-    return render(request, 'lodges/index1.html', cxt)
+    return render(request, 'lodges/index.html', cxt)
 
 
 def room_detail(request,lodge):
@@ -47,7 +47,7 @@ def room_detail(request,lodge):
             'light_choices': Lodge.Light.choices,
             'price_choices': price_choices,
             'values':request.GET,}
-    return render(request, 'lodges/room-single.html', cxt)
+    return render(request, 'lodges/room.html', cxt)
 
 
 def room_list(request):
@@ -85,7 +85,7 @@ def room_list(request):
         light = request.GET['light']
         if light:
             room_query = room_query.filter(lodge__light__iexact=light)
-    rooms_per_page = 10
+    rooms_per_page = 9
     paginator = Paginator(room_query, rooms_per_page)
     page_number = request.GET.get('page', 1)
     try:
@@ -101,12 +101,12 @@ def room_list(request):
         'light_choices': Lodge.Light.choices,
         'price_choices': price_choices,
         'values':request.GET,}
-    return render(request, 'lodges/rooms-grid.html', cxt)
+    return render(request, 'lodges/rooms.html', cxt)
 
 
 def lodge_list(request):
     lodge_query = Lodge.objects.all()
-    lodges_per_page = 1
+    lodges_per_page = 9
     paginator = Paginator(lodge_query, lodges_per_page)
     page_number = request.GET.get('page', 1)
     try:
@@ -122,7 +122,7 @@ def lodge_list(request):
             'light_choices': Lodge.Light.choices,
             'price_choices': price_choices,
             'values':request.GET,}
-    return render(request, 'lodges/lodges-grid.html', cxt)
+    return render(request, 'lodges/lodges.html', cxt)
 
 
 def lodge_detail(request, name):
@@ -146,7 +146,7 @@ def lodge_detail(request, name):
             'light_choices': Lodge.Light.choices,
             'price_choices': price_choices,
             'values':request.GET,}
-    return render(request, 'lodges/lodge-single.html', cxt)
+    return render(request, 'lodges/lodge.html', cxt)
 
 
 price_choices = {

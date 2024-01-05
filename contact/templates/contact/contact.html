@@ -2,9 +2,12 @@
 {% load static %}
 {% block content %}
 <body>
-
+  
+  {% block alerts %}
+    {% include '__alerts.html' %}
+  {% endblock alerts %}
+    
   <main id="main">
-
     <!-- ======= Intro Single ======= -->
     <section class="intro-single">
       <div class="container">
@@ -36,6 +39,7 @@
     <section class="contact">
       <div class="container">
         <div class="row">
+          <!-- google map section -->
           <div class="col-sm-12">
             <div class="contact-map box">
               <div id="map" class="contact-map">
@@ -44,6 +48,9 @@
               </div>
             </div>
           </div>
+          <!-- end google map section -->
+
+          <!-- contact form -->
           <div class="col-sm-12 section-t8">
             <div class="row">
               <div class="col-md-7">
@@ -84,6 +91,9 @@
                   </div>
                 </form>
               </div>
+              <!-- end contact form -->
+
+            
               <div class="col-md-5 section-md-t3">
                 <div class="icon-box section-b2">
                   <div class="icon-box-icon">
@@ -113,8 +123,8 @@
                     </div>
                     <div class="icon-box-content">
                       <p class="mb-1">
-                        Manhattan, Nueva York 10036,
-                        <br> EE. UU.
+                        Blue Haven, Gidan kwano,
+                        <br> Minna. Niger State.
                       </p>
                     </div>
                   </div>

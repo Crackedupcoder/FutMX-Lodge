@@ -14,8 +14,8 @@
   <script src="https://unpkg.com/scrollreveal"></script>
 
   <!-- Favicons -->
-  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
-  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  <link href="{% static 'assets/img/logo.png' %}" rel="icon">
+  <link href="{% static 'assets/img/logo.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -27,41 +27,49 @@
   <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="{% static 'assets/css/style1.css' %}" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
-  
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
 </head>
 
 <body>
 
   <!-- ======= Property Search Section ======= -->
     {% include '_search.html' %}
- <!-- End Property Search Section -->>
+  <!-- End Property Search Section -->>
 
+  <!-- navbar section -->
     {% include '_navbar.html' %}
+  <!-- end navbar section -->
 
     {% block content %} {% endblock content %}
 
+  <!-- footer section -->
     {% include '_footer.html' %}
+  <!-- end footer section -->
+
+  <!-- flash alerts -->
     {% block alerts %}
     {% include '_alerts.html' %}
     {% endblock alerts %}
+  <!-- end flash alerts -->
+
     <!-- preloader -->
     <div id="preloader"></div>
+    <!-- end preloader -->
+
+    <!-- back-to-top -->
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <!-- end back-to-top -->
   
     <!-- Vendor JS Files -->
- 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
     <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
   
     <!-- Template Main JS File -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="{% static 'assets/js/reveal.js' %}"></script>
-    <script src="{% static 'js/main.js' %} "></script>
+
 
 </body>
 

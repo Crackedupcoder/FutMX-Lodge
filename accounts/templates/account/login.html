@@ -15,7 +15,7 @@
               <!-- Alerts-->
               <form action="{% url 'account_login' %}" method="POST" style="margin-top: 0px !important;">
                 {% csrf_token %}
- 
+                {% include 'errors.html' %}
                 <div class="form-group">
                   <label for="password2">Email</label>
                   <input type="text" name="login" class="form-control" required>

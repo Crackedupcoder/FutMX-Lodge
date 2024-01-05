@@ -5,16 +5,17 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto">
-          <div class="card"><br>
+          <div class="card" style="margin-bottom: 0px !important;"><br>
             <div class="col-sm-12">
-              <div class="title-box-d">
+              <div class="title-box-d" style="margin-left: 10px !important; margin-bottom: 0px !important;">
                 <h3 class="title-d">Register</h3>
               </div>
             </div>
             <div class="card-body">
                 <!-- Alerts-->
                 {% include '_alerts.html' %}
-                <form action="{% url 'account_signup' %}" method="POST">
+                {% include 'errors.html' %}
+                <form action="{% url 'account_signup' %}" method="POST" style="margin-top: 0px !important;">
                     {% csrf_token %}
                     {% for field in form %}
                 <div class="form-group">
