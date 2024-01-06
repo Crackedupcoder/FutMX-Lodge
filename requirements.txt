@@ -53,4 +53,3 @@ packaging
 whitenoise
 cloudinary
 django-cloudinary-storage
-pywin32==*
