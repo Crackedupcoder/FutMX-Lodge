@@ -35,7 +35,6 @@ pypiwin32
 python-dateutil
 python3-openid
 pytz
-pywin32
 PyYAML
 requests
 requests-oauthlib
