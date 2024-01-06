@@ -1,5 +1,4 @@
 asgiref
-awsebcli
 botocore
 cement
 certifi
@@ -31,7 +30,6 @@ platformdirs
 psycopg2-binary
 pycparser
 PyJWT
-pypiwin32
 python-dateutil
 python3-openid
 pytz
@@ -53,4 +51,3 @@ packaging
 whitenoise
 cloudinary
 django-cloudinary-storage
-setuptools
