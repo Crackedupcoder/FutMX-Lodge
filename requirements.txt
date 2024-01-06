@@ -51,3 +51,4 @@ packaging
 whitenoise
 cloudinary
 django-cloudinary-storage
+python-magic
