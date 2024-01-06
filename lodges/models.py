@@ -8,7 +8,7 @@ from django.utils.text import slugify
 from django.utils.crypto import get_random_string
 import locale
 from django.db.models.query import QuerySet
-from .validation import is_valid_video, validate_video_size, validate_image_size
+from .validation import is_valid_video
 
 
 # class PublishedManager(models.Manager):
@@ -35,12 +35,12 @@ class Lodge(models.Model):
     campus = models.CharField(max_length=2, choices=Campus.choices)
     area = models.CharField(max_length=50)
     available_rooms = models.IntegerField(default=0)
-    cover_image = models.ImageField(default='11756.jpg', upload_to='lodge/', validators=[validate_image_size,])
+    cover_image = models.ImageField(default='11756.jpg', upload_to='lodge/', validators=[FileExtensionValidator(allowed_extensions=['jpg','png','jpeg',]),])
     water = models.CharField(max_length=2, choices=Water.choices)
     light = models.CharField(max_length=2, choices=Light.choices)
     price = models.DecimalField(decimal_places=2, max_digits=9)
     description = models.TextField(blank=True)
-    video = models.FileField(upload_to='videos/', blank=True, validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'mkv', 'mov', 'wmv']), is_valid_video, validate_video_size])
+    video = models.FileField(upload_to='videos/', blank=True, validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'mkv', 'mov', 'wmv']), is_valid_video])
     created_at = models.DateTimeField(default=timezone.now)
 
 
@@ -75,7 +75,7 @@ class Lodge(models.Model):
 
 
 class LodgeImage(models.Model):
-    image = models.ImageField(upload_to='lodges/', validators=[validate_image_size,])
+    image = models.ImageField(upload_to='lodges/',)
     lodge = models.ForeignKey(Lodge, on_delete=models.CASCADE, related_name='images')
 
 
@@ -101,8 +101,8 @@ class Room(models.Model):
     block = models.CharField(max_length=50, blank=True)
     availabe = models.BooleanField(default=False)
     price = models.DecimalField(decimal_places=2, max_digits=9)
-    cover_image = models.ImageField(default='11756.jpg', upload_to='rooms/', validators=[validate_image_size,])
-    video = models.FileField(upload_to='videos/', blank=True, validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'mkv', 'mov', 'wmv']), is_valid_video, validate_video_size])
+    cover_image = models.ImageField(default='11756.jpg', upload_to='rooms/',)
+    video = models.FileField(upload_to='videos/', blank=True, validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'mkv', 'mov', 'wmv']), is_valid_video])
     created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -134,7 +134,7 @@ class Room(models.Model):
     
 
 class RoomImage(models.Model):
-    image = models.ImageField(upload_to='rooms/', validators=[validate_image_size,])
+    image = models.ImageField(upload_to='rooms/',)
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='images')
     
 
