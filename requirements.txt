@@ -49,6 +49,6 @@ Brotli
 gunicorn
 packaging
 whitenoise
-cloudinary
-django-cloudinary-storage
-python-magic
+boto3
+django-storages
+s3transfer
