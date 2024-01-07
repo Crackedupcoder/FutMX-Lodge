@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 
 <body>
@@ -67,7 +68,7 @@
                   </div>
                   <div class="card-body-a">
                     <div class="price-box d-flex">
-                      <span class="price-a">&#x20A6; | {{ room.price | floatformat:2 }}</span>
+                      <span class="price-a">&#x20A6; | {{room.price | intcomma}}</span>
                     </div>
                     <a href="{{room.get_absolute_url}}" class="link-a">Click here to view
                       <span class="bi bi-chevron-right"></span>

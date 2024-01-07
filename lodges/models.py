@@ -62,6 +62,7 @@ class Lodge(models.Model):
         super().save(*args, **kwargs)
 
     def formatted_price(self):
+        locale.setlocale(locale.LC_ALL, '')
         formatted_price = locale.format('%0.2f', self.price, grouping=True)
         return formatted_price
 
