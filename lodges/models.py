@@ -7,7 +7,6 @@ from django.core.validators import FileExtensionValidator
 from django.utils.text import slugify
 from django.utils.crypto import get_random_string
 import locale
-from cloudinary_storage.storage import VideoMediaCloudinaryStorage
 from .validation import is_valid_video
 
 
@@ -40,7 +39,7 @@ class Lodge(models.Model):
     light = models.CharField(max_length=2, choices=Light.choices)
     price = models.DecimalField(decimal_places=2, max_digits=9)
     description = models.TextField(blank=True)
-    video = models.FileField(upload_to='videos/', blank=True,storage=VideoMediaCloudinaryStorage(),validators=[is_valid_video])
+    video = models.FileField(upload_to='videos/', blank=True, validators=[is_valid_video])
     created_at = models.DateTimeField(default=timezone.now)
 
 
@@ -102,7 +101,7 @@ class Room(models.Model):
     availabe = models.BooleanField(default=False)
     price = models.DecimalField(decimal_places=2, max_digits=9)
     cover_image = models.ImageField(default='11756.jpg', upload_to='rooms/',)
-    video = models.FileField(upload_to='videos/', blank=True, storage=VideoMediaCloudinaryStorage(),validators=[is_valid_video])
+    video = models.FileField(upload_to='videos/', blank=True, validators=[is_valid_video])
     created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
