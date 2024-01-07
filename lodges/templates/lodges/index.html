@@ -26,7 +26,7 @@
                         {{room.lodge.name}}
                     </h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="{{room.get_absolute_url}}"><span class="price-a">rent | &#x20A6; {{room.formatted_price}}</span></a>
+                      <a href="{{room.get_absolute_url}}"><span class="price-a">rent | &#x20A6; {{ room.price | floatformat:2 }}</span></a>
                     </p>
                   </div>
                 </div>
@@ -171,7 +171,7 @@
                     </div>
                     <div class="card-body-a">
                       <div class="price-box d-flex">
-                        <span class="price-a">rent | &#x20A6; {{room.formatted_price}}</span>
+                        <span class="price-a">rent | &#x20A6; {{ room.price | floatformat:2 }}</span>
                       </div>
                       <a href="{{room.get_absolute_url}}" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
