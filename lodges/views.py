@@ -5,6 +5,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from accounts.forms import AgentContactForm
 from django.core.mail import send_mail
 from django.contrib import messages
+from django.template import RequestContext
+
 
 
 def home_page(request):
@@ -158,5 +160,5 @@ price_choices = {
 }
 
 
-def custom_server_error(request, *args, **kwargs):
+def handler500(request):
     return render(request, '500.html', status=500)

@@ -27,7 +27,7 @@
                         {{room.lodge.name}}
                     </h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="{{room.get_absolute_url}}"><span class="price-a">rent | &#x20A6; {{room.price | intcomma}}</span></a>
+                      <a href="{{room.get_absolute_url}}"><span class="price-a">rent | &#x20A6; {{room.formatted_price}}</span></a>
                     </p>
                   </div>
                 </div>
@@ -63,7 +63,7 @@
             <div class="card-box-c foo">
               <div class="card-header-c d-flex">
                 <div class="card-box-ico">
-                  <span class="bi bi-cart"></span>
+                  <span class="bi bi-search"></span>
                 </div>
                 <div class="card-title-c align-self-center">
                   <h2 class="title-c">House Search</h2>
@@ -74,11 +74,6 @@
                   Simplify your housing search! Explore a variety of on-campus and off-campus
                    accommodation options tailored to your preferences and budget.
                 </p>
-              </div>
-              <div class="card-footer-c">
-                <a href="#" class="link-c link-icon">Read more
-                  <span class="bi bi-chevron-right"></span>
-                </a>
               </div>
             </div>
           </div>
@@ -99,11 +94,6 @@
                    <strong>(Coming Soon)</strong>
                 </p>
               </div>
-              <div class="card-footer-c">
-                <a href="#" class="link-c link-icon">Read more
-                  <span class="bi bi-calendar4-week"></span>
-                </a>
-              </div>
             </div>
           </div>
           <div class="col-md-4">
@@ -121,11 +111,6 @@
                   Access helpful guides and resources! From understanding leases to creating a comfortable living space,
                    we provide valuable information for a seamless rental experience.
                 </p>
-              </div>
-              <div class="card-footer-c">
-                <a href="#" class="link-c link-icon">Read more
-                  <span class="bi bi-chevron-right"></span>
-                </a>
               </div>
             </div>
           </div>
@@ -172,7 +157,7 @@
                     </div>
                     <div class="card-body-a">
                       <div class="price-box d-flex">
-                        <span class="price-a">rent | &#x20A6; {{ room.price | floatformat:2 }}</span>
+                        <span class="price-a">rent | &#x20A6; {{room.price | intcomma}}</span>
                       </div>
                       <a href="{{room.get_absolute_url}}" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>

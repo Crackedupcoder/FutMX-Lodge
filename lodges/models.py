@@ -6,7 +6,6 @@ from django.urls import reverse
 from django.core.validators import FileExtensionValidator
 from django.utils.text import slugify
 from django.utils.crypto import get_random_string
-import locale
 from .validation import is_valid_video
 
 
@@ -61,10 +60,6 @@ class Lodge(models.Model):
 
         super().save(*args, **kwargs)
 
-    def formatted_price(self):
-        locale.setlocale(locale.LC_ALL, '')
-        formatted_price = locale.format('%0.2f', self.price, grouping=True)
-        return formatted_price
 
     def __str__(self):
         return self.name
@@ -120,9 +115,6 @@ class Room(models.Model):
             self.slug = unique_slug
         super().save(*args, **kwargs)
 
-    def formatted_price(self):
-        formatted_price = locale.format('%0.2f', self.price, grouping=True)
-        return formatted_price
 
     def __str__(self):
         return self.lodge.name
