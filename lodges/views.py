@@ -156,3 +156,7 @@ price_choices = {
     '200000':'NGN 200,000.00',
     '250000':'NGN 250,000.00',
 }
+
+
+def custom_server_error(request, *args, **kwargs):
+    return render(request, '500.html', status=500)
