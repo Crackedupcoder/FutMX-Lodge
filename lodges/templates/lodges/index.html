@@ -27,7 +27,7 @@
                         {{room.lodge.name}}
                     </h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="{{room.get_absolute_url}}"><span class="price-a">rent | &#x20A6; {{room.formatted_price}}</span></a>
+                      <a href="{{room.get_absolute_url}}"><span class="price-a">rent | &#x20A6; {{room.price | intcomma}}</span></a>
                     </p>
                   </div>
                 </div>
