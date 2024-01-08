@@ -33,6 +33,13 @@ DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'futmxlodge@gmail.com'
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 SECURE_SSL_REDIRECT = True 
