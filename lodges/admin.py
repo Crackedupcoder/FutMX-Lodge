@@ -25,12 +25,8 @@ class LodgeConfig(admin.ModelAdmin):
     list_filter = (
         'campus', 'area', 'light', 'water',
     )
-    prepopulated_fields = {'slug': ('name',)}
-    add_fieldsets = (
-        ( {
-            'classes': ('wide',),
-            'fields': ('name','campus','area','light','water','cover_image','available_rooms')
-        },),
+    fieldsets = (
+        (None,{'fields':('name','campus','price','area','light','water','cover_image','available_rooms','description')}),
     )
     inlines = [LodgeImageInline, LodgeAmmenitiesInline]
 
@@ -38,51 +34,37 @@ class LodgeConfig(admin.ModelAdmin):
 class RoomConfig(admin.ModelAdmin):
     search_fields = ('lodge','type', 'number',)
     list_display = (
-        'lodge', 'type', 'number','block', 'lodge_campus'
+        'lodge','agent', 'type', 'lodge_light','lodge_water', 'lodge_campus'
     )
     list_filter = (
-        'type',
+        'type','agent','lodge__light','lodge__water','lodge__campus',
     )
-    prepopulated_fields = {'slug': ('lodge',)}
     inlines = [RoomImageInline]
-    add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('agent','lodge','price',)
-        },),)
+    autocomplete_fields = ('lodge',)
+    fieldsets = (
+        (None,{'fields':('lodge','type','number','block','cover_image','price','video', 'availabe')}),
+    )
+
+    def save_model(self, request, obj, form, change):
+        # Set the 'agent' field to the currently logged-in user
+        obj.agent = request.user.agent
+        super().save_model(request, obj, form, change)
+
     def lodge_campus(self, obj):
-        return obj.lodge.get_campus_display() # Assuming 'campus' is a CharField in the Lodge model
+        return obj.lodge.get_campus_display() 
 
     lodge_campus.short_description = 'Lodge Campus'
+
+    def lodge_water(self, obj):
+        return obj.lodge.get_water_display() 
+
+    lodge_water.short_description = 'Lodge Water'
+
+    def lodge_light(self, obj):
+        return obj.lodge.get_light_display() 
+    
+    lodge_light.short_description = 'Lodge Light'
 
 admin.site.register(Lodge, LodgeConfig)
 admin.site.register(Room, RoomConfig)
 
-
-# class UserAccountConfig(UserAdmin):
-#     ordering = ('-created_at',)
-#     search_fields = ('email','first_name','last_name')
-#     list_display = (
-#         'email','first_name','last_name','is_staff','is_active'
-#     )
-#     fieldsets = (
-#         (None,{'fields':('username','email','first_name','last_name','about','avatar','skills')}),
-#         ('Permissions', {'fields': ('is_staff','is_active','is_superuser',)})
-#     )
-#     add_fieldsets = (
-#         (None, {
-#             'classes': ('wide',),
-#             'fields': ('username','email','first_name','password1','password2','is_staff','is_superuser')
-#         },),
-#     )
-
-
-# class CreatorAccountConfig(admin.ModelAdmin):
-#     search_fields = ('creator',)
-#     list_display = (
-#         'creator',
-#     )
-#     fieldsets = (
-#         (None,{'fields':('creator',)}),
-#         ('Permissions', {'fields': ('is_verified',)})
-#     )

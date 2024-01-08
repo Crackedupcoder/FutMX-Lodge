@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 <body>
 
@@ -120,18 +121,6 @@
             </div>
           </div>
           <div class="row property-grid grid">
-            <div class="col-sm-12">
-              <div class="grid-option">
-                <form>
-                  <select class="custom-select">
-                    <option selected>All</option>
-                    <option value="1">New to Old</option>
-                    <option value="2">For Rent</option>
-                    <option value="3">For Sale</option>
-                  </select>
-                </form>
-              </div>
-            </div>
             {% if agent_rooms %}
             {% for room in agent_rooms %}
             <div class="col-md-4">
@@ -149,7 +138,7 @@
                     </div>
                     <div class="card-body-a">
                       <div class="price-box d-flex">
-                        <span class="price-a">rent | &#x20A6; {{room.formatted_price}}</span>
+                        <span class="price-a">rent | &#x20A6; {{room.price |intcomma}}</span>
                       </div>
                       <a href="{{room.get_absolute_url}}" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
