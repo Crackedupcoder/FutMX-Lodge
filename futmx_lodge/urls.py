@@ -19,8 +19,15 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from lodges import views
+from django.contrib.sitemaps.views import sitemap
+from lodges.sitemaps import StaticViewSitemap,LodgeSitemap,RoomSitemap
 
 handler500 = views.handler500
+sitemaps = {
+    'static': StaticViewSitemap,
+    'lodges': LodgeSitemap,
+    'rooms': RoomSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +37,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('about/', include('about.urls')),
     path('contact/', include('contact.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('__debug__/', include('debug_toolbar.urls')),
 ]
 
