@@ -1,0 +1,6 @@
+# static/robots.txt
+
+User-agent: *
+Disallow:
+
+Sitemap: https://futmx-lodge.onrender.com/sitemap.xml
